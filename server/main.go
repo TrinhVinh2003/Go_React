@@ -114,33 +114,33 @@ func main() {
 	// log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
-func saveToMysql(articles []Article) {
-	// connect Mysql
-	db, err := sql.Open("mysql", "root:@tcp(localhost)/test")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
+// func saveToMysql(articles []Article) {
+// 	// connect Mysql
+// 	db, err := sql.Open("mysql", "root:@tcp(localhost)/test")
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	defer db.Close()
 
-	// delete data cũ
-	_, err = db.Exec("DELETE FROM articles")
-	if err != nil {
-		log.Fatal(err)
-	}
+// 	// delete data cũ
+// 	_, err = db.Exec("DELETE FROM articles")
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
-	// insert data mới
-	insertDB, err := db.Prepare("INSERT INTO articles(title, link, image_url,content) VALUES(?, ?, ?, ?)")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer insertDB.Close()
+// 	// insert data mới
+// 	insertDB, err := db.Prepare("INSERT INTO articles(title, link, image_url,content) VALUES(?, ?, ?, ?)")
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// 	defer insertDB.Close()
 
-	for _, article := range articles {
-		_, err := insertDB.Exec(article.Title, article.Link, article.Image, article.Description)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
+// 	for _, article := range articles {
+// 		_, err := insertDB.Exec(article.Title, article.Link, article.Image, article.Description)
+// 		if err != nil {
+// 			log.Fatal(err)
+// 		}
+// 	}
 
-	fmt.Println("Success!")
-}
+// 	fmt.Println("Success!")
+// }
