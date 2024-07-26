@@ -1,9 +1,7 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"log"
+
 	"project/vnexpress/crawls"
 	"project/vnexpress/database"
 	"project/vnexpress/router"
@@ -13,6 +11,12 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
+type Article struct {
+	Title       string `json:"title"`
+	Link        string `json:"link"`
+	Image       string `json:"image"`
+	Description string `json:"description"`
+}
 
 
 func init() {
