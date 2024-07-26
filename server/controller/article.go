@@ -76,20 +76,7 @@ func ArticleCreate(c *fiber.Ctx) error {
 		context["statusText"] = ""
 		context["msg"] = "Something went wrong."
 	}
-	file, err := c.FormFile("file")
-
-	if err != nil {
-		log.Println("Error in file upload.", err)
-	}
-
-	if file.Size > 0 {
-		filename := "./static/uploads/" + file.Filename
-
-		if err := c.SaveFile(file, filename); err != nil {
-			log.Println("Error in file uploading...", err)
-		}
-		record.Image = filename
-	}
+	
 
 	result := database.DBConn.Create(record)
 
@@ -135,21 +122,7 @@ func ArticleUpdate(c *fiber.Ctx) error {
 		c.Status(400)
 		return c.JSON(context)
 	}
-	// File upload
-	file, err := c.FormFile("file")
-
-	if err != nil {
-		log.Println("Error in file upload.", err)
-	}
-
-	if file.Size > 0 {
-		filename := "static/uploads/" + file.Filename
-
-		if err := c.SaveFile(file, filename); err != nil {
-			log.Println("Error in file uploading...", err)
-		}
-		record.Image = filename
-	}
+	
 
 	result := database.DBConn.Save(record)
 
@@ -188,14 +161,7 @@ func ArticleDelete(c *fiber.Ctx) error {
 		return c.JSON(context)
 	}
 
-	// xóa 1 image
-	filename := record.Image
-
-	err := os.Remove(filename)
-	if err != nil {
-		log.Println("Error in deleting file.", err)
-	}
-
+	
 	result := database.DBConn.Delete(record)
 
 	if result.Error != nil {
